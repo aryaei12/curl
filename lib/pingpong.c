@@ -469,13 +469,14 @@ int Curl_pp_getsock(struct pingpong *pp, curl_socket_t *socks)
   return GETSOCK_READSOCK(0);
 }
 
-CURLcode Curl_pp_flushsend(struct pingpong *pp)
+CURLcode Curl_pp_flushsend(struct Curl_easy *data,
+                           struct pingpong *pp)
 {
   /* we have a piece of a command still left to send */
   struct connectdata *conn = pp->conn;
   ssize_t written;
   curl_socket_t sock = conn->sock[FIRSTSOCKET];
-  CURLcode result = Curl_write(conn->data, sock, pp->sendthis + pp->sendsize -
+  CURLcode result = Curl_write(data, sock, pp->sendthis + pp->sendsize -
                                pp->sendleft, pp->sendleft, &written);
   if(result)
     return result;

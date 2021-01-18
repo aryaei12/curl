@@ -2656,7 +2656,7 @@ static CURLcode ftp_statemachine(struct Curl_easy *data,
   size_t nread = 0;
 
   if(pp->sendleft)
-    return Curl_pp_flushsend(pp);
+    return Curl_pp_flushsend(data, pp);
 
   result = ftp_readresp(data, sock, pp, &ftpcode, &nread);
   if(result)

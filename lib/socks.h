@@ -72,7 +72,7 @@ CURLproxycode Curl_SOCKS5(const char *proxy_name,
  * This function handles the SOCKS5 GSS-API negotiation and initialisation
  */
 CURLcode Curl_SOCKS5_gssapi_negotiate(int sockindex,
-                                      struct connectdata *conn);
+                                      struct Curl_easy *data);
 #endif
 
 #endif /* CURL_DISABLE_PROXY */

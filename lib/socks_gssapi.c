@@ -100,9 +100,9 @@ static int check_gss_err(struct Curl_easy *data,
 }
 
 CURLcode Curl_SOCKS5_gssapi_negotiate(int sockindex,
-                                      struct connectdata *conn)
+                                      struct Curl_easy *data)
 {
-  struct Curl_easy *data = conn->data;
+  struct connectdata *conn = data->conn;
   curl_socket_t sock = conn->sock[sockindex];
   CURLcode code;
   ssize_t actualread;

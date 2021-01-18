@@ -629,7 +629,7 @@ CURLproxycode Curl_SOCKS5(const char *proxy_user,
 #if defined(HAVE_GSSAPI) || defined(USE_WINDOWS_SSPI)
     else if(allow_gssapi && (socksreq[1] == 1)) {
       sxstate(data, CONNECT_GSSAPI_INIT);
-      result = Curl_SOCKS5_gssapi_negotiate(sockindex, conn);
+      result = Curl_SOCKS5_gssapi_negotiate(sockindex, data);
       if(result) {
         failf(data, "Unable to negotiate SOCKS5 GSS-API context.");
         return CURLPX_GSSAPI;

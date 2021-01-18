@@ -137,10 +137,9 @@ static char *max5data(curl_off_t bytes, char *max5)
 
 */
 
-int Curl_pgrsDone(struct connectdata *conn)
+int Curl_pgrsDone(struct Curl_easy *data)
 {
   int rc;
-  struct Curl_easy *data = conn->data;
   data->progress.lastshow = 0;
   rc = Curl_pgrsUpdate(data); /* the final (forced) update */
   if(rc)

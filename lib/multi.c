@@ -593,7 +593,7 @@ static CURLcode multi_done(struct Curl_easy *data,
   if(CURLE_ABORTED_BY_CALLBACK != result) {
     /* avoid this if we already aborted by callback to avoid this calling
        another callback */
-    CURLcode rc = Curl_pgrsDone(conn);
+    CURLcode rc = Curl_pgrsDone(data);
     if(!result && rc)
       result = CURLE_ABORTED_BY_CALLBACK;
   }

@@ -3301,7 +3301,7 @@ static CURLcode ssh_done(struct Curl_easy *data, CURLcode status)
 
   if(sftp_scp)
     Curl_safefree(sftp_scp->path);
-  if(Curl_pgrsDone(data->conn))
+  if(Curl_pgrsDone(data))
     return CURLE_ABORTED_BY_CALLBACK;
 
   data->req.keepon = 0; /* clear all bits */

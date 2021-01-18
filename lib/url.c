@@ -1108,7 +1108,7 @@ ConnectionExists(struct Curl_easy *data,
 
   /* Look up the bundle with all the connections to this particular host.
      Locks the connection cache, beware of early returns! */
-  bundle = Curl_conncache_find_bundle(needle, data->state.conn_cache,
+  bundle = Curl_conncache_find_bundle(data, needle, data->state.conn_cache,
                                       &hostbundle);
   if(bundle) {
     /* Max pipe length is zero (unlimited) for multiplexed connections */
@@ -3647,7 +3647,7 @@ static CURLcode create_conn(struct Curl_easy *data,
       conn->bits.tcpconnect[FIRSTSOCKET] = TRUE; /* we are "connected */
 
       Curl_attach_connnection(data, conn);
-      result = Curl_conncache_add_conn(data->state.conn_cache, conn);
+      result = Curl_conncache_add_conn(data);
       if(result)
         goto out;
 
@@ -3817,7 +3817,8 @@ static CURLcode create_conn(struct Curl_easy *data,
       /* this gets a lock on the conncache */
       const char *bundlehost;
       struct connectbundle *bundle =
-        Curl_conncache_find_bundle(conn, data->state.conn_cache, &bundlehost);
+        Curl_conncache_find_bundle(data, conn, data->state.conn_cache,
+                                   &bundlehost);
 
       if(max_host_connections > 0 && bundle &&
          (bundle->num_connections >= max_host_connections)) {
@@ -3870,8 +3871,7 @@ static CURLcode create_conn(struct Curl_easy *data,
        * cache of ours!
        */
       Curl_attach_connnection(data, conn);
-
-      result = Curl_conncache_add_conn(data->state.conn_cache, conn);
+      result = Curl_conncache_add_conn(data);
       if(result)
         goto out;
     }

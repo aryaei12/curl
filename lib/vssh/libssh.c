@@ -2088,7 +2088,7 @@ static CURLcode myssh_block_statemach(struct Curl_easy *data,
       break;
 
     if(!disconnect) {
-      if(Curl_pgrsUpdate(conn))
+      if(Curl_pgrsUpdate(data))
         return CURLE_ABORTED_BY_CALLBACK;
 
       result = Curl_speedcheck(data, now);
@@ -2360,7 +2360,7 @@ static CURLcode myssh_done(struct Curl_easy *data, CURLcode status)
 
   if(protop)
     Curl_safefree(protop->path);
-  if(Curl_pgrsDone(data->conn))
+  if(Curl_pgrsDone(data))
     return CURLE_ABORTED_BY_CALLBACK;
 
   data->req.keepon = 0;   /* clear all bits */
